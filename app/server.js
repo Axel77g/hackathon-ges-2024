@@ -1,47 +1,58 @@
+import "dotenv/config";
 import express from "express";
-import axios from "axios";
+import { HTTPError } from "./Exceptions/HTTPError.js";
+import { Twitch } from "./lib/twitch.js";
+import { WA } from "./lib/WA.js";
 
 const app = express();
-
 app.set("view engine", "ejs");
 app.use(express.json());
 
-const CLIENT_ID = "ma7lw2lam42g3eih1e4l5913vad4up";
-const OAUTH_REDIRECT_URL = "http://localhost:3000/oauth";
+app.WA = new WA(process.env.WA_WORLD_SLUG);
 
-const query = {
-  client_id: CLIENT_ID,
-  redirect_uri: OAUTH_REDIRECT_URL,
-  response_type: "token+id_token",
-  scope: "openid",
-};
-
-function generateAuthLoginURL() {
-  const queryString = Object.keys(query)
-    .map((key) => `${key}=${query[key]}`)
-    .join("&");
-  return `https://id.twitch.tv/oauth2/authorize?${queryString}`;
-}
+app.use(async (req, res, next) => {
+  try {
+    return await next();
+  } catch (e) {
+    if (e instanceof HTTPError) {
+      res.status(e.status).send(e.message);
+    } else {
+      res.status(500).send("Internal Server Error");
+    }
+  }
+});
 
 app.get("/login", (req, res) => {
-  res.send(generateAuthLoginURL());
+  //res.redirect(Twitch.oauthURL);
+  res.render("login.ejs", { url: Twitch.oauthURL });
 });
 
 app.get("/oauth", (req, res) => {
-  //render with ejs
   res.render("oauth.ejs", {});
 });
+
 app.post("/oauth", async (req, res) => {
-  const response = await axios.get(
-    "https://api.twitch.tv/helix/eventsub/subscriptions",
-    {
-      headers: {
-        Authorization: "Bearer " + req.body.access_token,
-        "Client-Id": CLIENT_ID,
-      },
-    }
+  const accessToken = req.body.access_token;
+  const memberID = req.body.member_id; // trouver un moyen de faire remonter cette info depuis le front
+  const user = await Twitch.getUserInfo(accessToken);
+
+  const isSubscribed = await Twitch.isUserIsSubscribedToChannel(
+    accessToken,
+    user.id,
+    "123" // a changer
   );
-  console.log(response.data);
-  return res.send("ok");
+  if (isSubscribed) {
+    const { data: member } = await app.WA.getMember(memberID);
+    console.log(member);
+    member.tags.push("subscribed");
+    await app.WA.patchMember(memberID, {
+      tags: member.tags.join(","),
+      name: member.name,
+    });
+    res.render("success.ejs", {});
+  } else {
+    res.render("failure.ejs", {});
+  }
 });
+
 app.listen(3000, () => {});
