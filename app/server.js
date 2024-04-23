@@ -53,7 +53,7 @@ async function getUserInfo(accessToken) {
 
 function isUserIsSubscribedToChannel(accessToken, userId, broadcasterId) {
   return axios.get(
-    `https://api.twitch.tv/helix/subscriptions/user?broadcaster_id=${broadcasterId}`,
+    `https://api.twitch.tv/helix/subscriptions/user?broadcaster_id=${broadcasterId}&user`,
     {
       headers: getHeaders(accessToken),
     }
