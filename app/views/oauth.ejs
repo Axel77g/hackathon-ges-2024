@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Connexion en cours...</h1>
+    <script>
+      const hash = window.location.hash.replace("#", "");
+      const hashSplited = hash.split("&");
+      const hashObject = hashSplited.reduce((acc, current) => {
+        const [key, value] = current.split("=");
+        acc[key] = value;
+        return acc;
+      }, {});
+
+      fetch("/oauth", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(hashObject),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          localStorage.setItem("token", data.token);
+          window.location.href = "/";
+        });
+    </script>
+  </body>
+</html>

@@ -1,5 +1,10 @@
 import express from "express";
+import axios from "axios";
+
 const app = express();
+
+app.set("view engine", "ejs");
+app.use(express.json());
 
 const CLIENT_ID = "ma7lw2lam42g3eih1e4l5913vad4up";
 const OAUTH_REDIRECT_URL = "http://localhost:3000/oauth";
@@ -23,6 +28,20 @@ app.get("/login", (req, res) => {
 });
 
 app.get("/oauth", (req, res) => {
-  res.send(req.query);
+  //render with ejs
+  res.render("oauth.ejs", {});
+});
+app.post("/oauth", async (req, res) => {
+  const response = await axios.get(
+    "https://api.twitch.tv/helix/eventsub/subscriptions",
+    {
+      headers: {
+        Authorization: "Bearer " + req.body.access_token,
+        "Client-Id": CLIENT_ID,
+      },
+    }
+  );
+  console.log(response.data);
+  return res.send("ok");
 });
 app.listen(3000, () => {});
