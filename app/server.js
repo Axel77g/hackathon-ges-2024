@@ -35,8 +35,6 @@ app.post("/oauth", async (req, res) => {
   getUserInfo(req.body.access_token);
 });
 app.listen(3000, () => {});
-id_token: "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjEifQ.eyJhdWQiOiJtYTdsdzJsYW00MmczZWloMWU0bDU5MTN2YWQ0dXAiLCJleHAiOjE3MTM4NzgzMTUsImlhdCI6MTcxMzg3NzQxNSwiaXNzIjoiaHR0cHM6Ly9pZC50d2l0Y2gudHYvb2F1dGgyIiwic3ViIjoiNjg3NzY1NDAiLCJhdF9oYXNoIjoienNFa19Ua2t6dF9zWDl4NW1qOFJaQSIsImF6cCI6Im1hN2x3MmxhbTQyZzNlaWgxZTRsNTkxM3ZhZDR1cCIsInByZWZlcnJlZF91c2VybmFtZSI6IkF4ZUxpaWl0b29vIn0.5kR19HMTjzD4a397ibSkxmfPTDtUWrvfg08XZNdd4e9KPmibAlbxqmm2dcxciyrKn7LXcwLwkM-mOUBG26yXkUpLgqB6eEPeh5U9hHYbGBDp5tc1j_lDl_WrtLKPVop3BJE7tGwrl2uiNKFhPbCDvNkcDk63lGdZVzJK-y6VqyKn6KHCj4FhJ25b7dSe0tzkSPxqx7QmEGJ75Vt2WIYtVaaTiSbF2j-sMsXCIfeZH2Cinuhb_8Vjgv7-OPfFctFGfT2g5nmF3j74IXw8SRCjRf_Gxz9Z0OkDA15j0U2PQ7l4VtKqbJmjhuFcT_1QCc7fcGr5NSzIgtPiqsOY46tJtg",
-  8;
 
 function getHeaders(accessToken) {
   return {
