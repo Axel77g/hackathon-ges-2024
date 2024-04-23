@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="title" content="WorkAdventure Starter Kit">
+    <title>Player</title>
+
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+        }
+        main {
+            display: flex;
+            height: 100%;
+            position: relative; /* Ajoute une position relative pour le positionnement du bouton */
+        }
+        .twitch {
+            display: flex;
+            flex-direction: row;
+            height: 100%;
+            width: 100%;
+        }
+        .twitch-video {
+            width: 100%;
+        }
+        .twitch-chat {
+            height: 100%;
+            width: 25%;
+            display: none;
+        }
+        iframe {      
+            height: 100%;
+            width: 100%;
+            border: none;
+        }
+
+        #toggleChat svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        #toggleChat {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: #232323;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: none;
+            cursor: pointer;
+            top: 10px;
+            right: 10px;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="twitch">
+            <div class="twitch-video" id="video">
+              <iframe
+                src="https://player.twitch.tv/?channel=domingo&parent=127.0.0.1&autoplay=false"
+                frameborder="0"
+                scrolling="no"
+                allowfullscreen="true"
+                width="100%">
+              </iframe>
+            </div>
+            <div class="twitch-chat" id="chat">
+              <iframe
+                frameborder="0"
+                scrolling="no"
+                src="https://www.twitch.tv/embed/domingo/chat?parent=127.0.0.1"></iframe>
+              </iframe>
+            </div>
+          </div>
+          <button id="toggleChat" onclick="toggleChat()">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24" stroke-width="1.5" stroke="white">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.76c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.076-4.076a1.526 1.526 0 0 1 1.037-.443 48.282 48.282 0 0 0 5.68-.494c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z" />
+            </svg>
+          </button>
+    </main>
+
+    <script>
+        function toggleChat() {
+            var chat = document.getElementById("chat");
+            var video = document.getElementById("video");
+            var button = document.getElementById("toggleChat");
+            if (chat.style.display === "none") {
+                chat.style.display = "block";
+                button.style.right = (10 + chat.offsetWidth + 75) + 'px';
+                video.style.width = "75%";
+            } else {
+                chat.style.display = "none";
+                video.style.width = "100%";
+                button.style.right = '10px';
+            }
+        }
+    </script>
+</body>
+</html>
