@@ -23,8 +23,11 @@ app.use(async (req, res, next) => {
 });
 
 app.get("/login", (req, res) => {
-  //res.redirect(Twitch.oauthURL);
   res.render("login.ejs", { url: Twitch.oauthURL });
+});
+
+app.get("/player", (req, res) => {
+  res.render("player.ejs", { host: process.env.HOST });
 });
 
 app.get("/oauth", (req, res) => {
