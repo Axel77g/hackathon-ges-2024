@@ -1,24 +1,17 @@
 import "dotenv/config";
 import express from "express";
-import session from "express-session";
 import { HTTPError } from "./Exceptions/HTTPError.js";
 import { Twitch } from "./lib/twitch.js";
 import { WA } from "./lib/WA.js";
+import { LoginQueue } from "./lib/LoginQueue.js";
 
 const app = express();
 app.set("view engine", "ejs");
 app.use(express.json());
 app.use(express.static("public"));
-app.use(
-  session({
-    secret: "keyboard cat",
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: true },
-  })
-);
 
 app.WA = new WA(process.env.WA_WORLD_SLUG);
+app.LoginQueue = new LoginQueue();
 
 app.use(async (req, res, next) => {
   try {
@@ -35,10 +28,11 @@ app.use(async (req, res, next) => {
 app.get("/login", (req, res) => {
   res.render("login.ejs", { url: Twitch.oauthURL });
 });
-app.post("/login", async (req, res) => {
-  const member_id = req.body.member_id;
-  req.session.member_id = member_id;
-  res;
+
+app.post("/is-connected", async (req, res) => {
+  const uuid = req.body.uuid;
+  res.json({ connected: app.LoginQueue.has(uuid) });
+  app.LoginQueue.delete(uuid);
 });
 
 app.get("/player", (req, res) => {
@@ -53,9 +47,8 @@ app.post("/oauth", async (req, res) => {
   const accessToken = req.body.access_token;
   const state = req.body.state;
   if (!state && !accessToken) throw new HTTPError(400, "Bad Request");
-  //convert base64 to utf8 state
   const memberID = Buffer.from(state, "base64").toString("utf8");
-  console.log(memberID);
+
   const user = await Twitch.getUserInfo(accessToken);
 
   const { data } = await Twitch.isUserIsSubscribedToChannel(
@@ -76,6 +69,7 @@ app.post("/oauth", async (req, res) => {
     } catch (error) {
       console.error(error);
     }
+    app.LoginQueue.set(memberID, new Date());
     res.json({ success: true });
   } else {
     res.json({ success: false });
