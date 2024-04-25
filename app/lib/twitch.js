@@ -2,6 +2,7 @@ import axios from "axios";
 import { HTTPError } from "../Exceptions/HTTPError.js";
 
 const CLIENT_ID = process.env.TWITCH_CLIENT_ID;
+const CLIENT_SECRET = process.env.TWITCH_CLIENT_SECRET;
 const OAUTH_REDIRECT_URL = process.env.TWITCH_REDIRECT_URL;
 
 export class Twitch {
@@ -30,6 +31,7 @@ export class Twitch {
     );
     try {
       const data = await request.call();
+      console.log("lala", data);
       return data;
     } catch (error) {
       if (error.status === 404) return false;
@@ -54,6 +56,29 @@ export class Twitch {
       Authorization: "Bearer " + accessToken,
       "Client-Id": CLIENT_ID,
     };
+  }
+
+  static async getAccessToken(code) {
+    const urlEncodedBody = new URLSearchParams({
+      client_id: CLIENT_ID,
+      client_secret: CLIENT_SECRET,
+      code,
+      grant_type: "authorization_code",
+      redirect_uri: OAUTH_REDIRECT_URL,
+    });
+    const request = new TwitchRequest(
+      axios.post(
+        "https://id.twitch.tv/oauth2/token",
+        urlEncodedBody.toString(),
+        {
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      )
+    );
+    const data = await request.call();
+    return data;
   }
 }
 
