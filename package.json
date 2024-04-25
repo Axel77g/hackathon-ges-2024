@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:server": "cd app && nodemon server.js",
     "start": "vite",
     "build": "tsc && vite build",
     "prod": "vite preview"
@@ -20,7 +21,10 @@
   "dependencies": {
     "@workadventure/scripting-api-extra": "^1.8.1",
     "axios": "^1.6.8",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
     "ejs": "^3.1.10",
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "express-session": "^1.18.0"
   }
 }
