@@ -34,6 +34,10 @@ app.get("/oauth", (req, res) => {
   res.render("oauth.ejs", {});
 });
 
+app.get("/var", (req,res) => {
+  res.render("")
+})
+
 app.post("/oauth", async (req, res) => {
   const accessToken = req.body.access_token;
   const memberID = req.body.member_id; // trouver un moyen de faire remonter cette info depuis le front
