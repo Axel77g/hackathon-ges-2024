@@ -5,24 +5,17 @@ import { bootstrapExtra } from "@workadventure/scripting-api-extra";
 
 console.log('Script started successfully');
 
-let currentPopup: any = undefined;
 let numberViewers: number = 0;
+let currentPopup: any = undefined;
 
 // Attendre que l'API soit prête
 WA.onInit().then(() => {
     console.log('Scripting API ready');
     console.log('Player tags: ', WA.player.tags);
+    WA.player.tags.push('subscribed_1000');
 
     // Configurer le suivi des joueurs
     WA.players.configureTracking();
-
-    // Détecter l'entrée dans la zone 'clock'
-    WA.room.area.onEnter('clock').subscribe(() => {
-        const today = new Date();
-        const time = today.getHours() + ":" + today.getMinutes();
-        currentPopup = WA.ui.openPopup("clockPopup", "It's " + time + " - Viewers: " + numberViewers, []);
-        console.log(currentPopup);
-    });
 
     // Détecter l'entrée dans la zone 'jitsiChillZone'
     WA.room.area.onEnter('jitsiChillZone').subscribe(() => {
@@ -67,8 +60,37 @@ WA.onInit().then(() => {
         });
     });
 
-    // Détecter la sortie de la zone 'clock'
-    WA.room.area.onLeave('clock').subscribe(closePopup);
+    WA.room.onEnterLayer('openDoorZone').subscribe(() => {
+        if(WA.player.tags.includes('subscribed_1000')) {
+            WA.room.showLayer('above/openDoor');
+            WA.room.hideLayer('closeDoor');
+        } else {
+            WA.room.hideLayer('above/openDoor');
+            WA.room.showLayer('closeDoor');
+        }
+    })
+
+    WA.room.area.onEnter('connexion_popup').subscribe(() => {
+        if(!WA.player.tags.includes("subscribed_1000")) {
+            currentPopup = WA.ui.openPopup("message", "Vous devez vous être connecté pour entrer", []);
+        }
+    })
+    WA.room.area.onLeave('connexion_popup').subscribe(closePopup);
+
+    WA.room.area.onEnter('liveAreaPopup1').subscribe(() => {
+        currentPopup = WA.ui.openPopup("livePopup1", "Zone de live", []);
+    })
+    WA.room.area.onLeave('liveAreaPopup1').subscribe(closePopup);
+
+    WA.room.area.onEnter('liveAreaPopup2').subscribe(() => {
+        currentPopup = WA.ui.openPopup("livePopup2", "Zone de live", []);
+    })
+    WA.room.area.onLeave('liveAreaPopup2').subscribe(closePopup);
+
+    WA.room.area.onEnter('liveAreaPopup3').subscribe(() => {
+        currentPopup = WA.ui.openPopup("livePopup3", "Zone de live", []);
+    })
+    WA.room.area.onLeave('liveAreaPopup3').subscribe(closePopup);
 
     // Initialisation de la bibliothèque Scripting API Extra
     bootstrapExtra().then(() => {

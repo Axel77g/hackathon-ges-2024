@@ -1,22 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Document</title>
-  <script src="https://play.workadventu.re/iframe_api.js"></script>
-  <script src="/js/main.js" type="module"></script>
-</head>
-<body>
-<h1>
-  Connexion
-  <!-- a twitch -->
-</h1>
-<a href="/test" target="_app"> test</a>
-<a href="<%=url%>" target="_app" id="link">
-  Connecter vous avec
-  <!-- twitch -->
-  pour continuer
-</a>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Connexion</title>
+    <script src="https://play.workadventu.re/iframe_api.js"></script>
+    <script src="/js/main.js" type="module"></script>
+  </head>
+  <style>
+    body {
+      font-family: 'Roobert';
+      src: url('../fonts/RoobertBold.ttf');
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+    }
+    h1 {
+      text-align: center;
+    }
+    a {
+      text-decoration: none;
+      background-color: #6441a5;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 5px;
+      width: 100px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
+  <body>
+    <h1>Connectez-vous à Twitch</h1>
+    <a href="<%=url%>" target="_app" id="link">Connexion</a>
+  </body>
 </html>
