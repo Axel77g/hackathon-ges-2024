@@ -92,6 +92,11 @@ WA.onInit().then(() => {
     })
     WA.room.area.onLeave('liveAreaPopup3').subscribe(closePopup);
 
+    WA.room.area.onEnter('RediffClipAreaPopup').subscribe(() => {
+        currentPopup = WA.ui.openPopup("RediffClipPopup", "Rediffs et clips", []);
+    })
+    WA.room.area.onLeave('RediffClipAreaPopup').subscribe(closePopup);
+
     // Initialisation de la bibliothèque Scripting API Extra
     bootstrapExtra().then(() => {
         console.log('Scripting API Extra ready');

@@ -60,11 +60,6 @@ app.get("/login", (req, res) => {
   res.render("login.ejs", { url: Twitch.oauthURL });
 });
 
-app.get("/test", (req, res) => {
-  console.log(req.session);
-  return res.render("test.ejs");
-});
-
 app.post("/is-connected", async (req, res) => {
   res.send({
     connected: Boolean(req?.session?.user?.isSubscribed),
