@@ -11,31 +11,35 @@
 function bootstrapLogin() {
   let tries = 0;
   WA.onInit().then(async () => {
-    //ajoute le uuid du membre en base64 au lien de connexion twitch
     const link = document.getElementById("link");
-    const base64UUID = btoa(WA.player.uuid);
-    link.href = link.href + "&state=" + base64UUID;
-
-    //verification de la connexion
-    while (tries < 20) {
-      fetch("/is-connected", {
-        method: "POST",
-        credentials: "same-origin",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ uuid: WA.player.uuid }),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data);
-          if (data.connected) {
-            WA.event.broadcast("connectionState", WA.player.uuid);
-            window.location.href = "/success";
-          }
-        });
-      tries++;
-      await new Promise((resolve) => setTimeout(resolve, 3000));
+    if (WA?.player?.isLogged) {
+      //ajoute le uuid du membre en base64 au lien de connexion twitch
+      link.setAttribute("disabled", false);
+      const base64UUID = btoa(WA.player.uuid);
+      link.href = link.href + "&state=" + base64UUID;
+      //verification de la connexion
+      while (tries < 20) {
+        fetch("/is-connected", {
+          method: "POST",
+          credentials: "same-origin",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ uuid: WA.player.uuid }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            if (data.connected) {
+              WA.event.broadcast("connectionState", WA.player.uuid);
+              window.location.href = "/success";
+            }
+          });
+        tries++;
+        await new Promise((resolve) => setTimeout(resolve, 3000));
+      }
+    } else {
+      link.innerHTML = "Vous devez être connecté a Workadventure";
     }
   });
 }
