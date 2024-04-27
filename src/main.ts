@@ -14,13 +14,12 @@ WA.onInit()
     console.log("Player tags: ", WA.player.tags);
 
     function handleNotConnected() {
-      return;
       if (
         !WA.room.mapURL.includes("hub") &&
         !WA.player.tags.some((tag) => tag.startsWith("subscribed"))
       ) {
         let id = WA.room.id.replace("https://play.workadventu.re", "");
-        WA.nav.goToRoom(id.replace(/(.+\/).+\.tmj/, "$1hub.tmj"));
+        WA.nav.goToRoom(id.replace(/(.+\/).+/, "hub"));
       }
     }
     function handleConnected() {
