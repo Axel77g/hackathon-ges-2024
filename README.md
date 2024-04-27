@@ -2,9 +2,42 @@
 
 > BOULAHNINE Yassine, DIALLO  Abdoulaye, GODEFROY Axel, MARTINEZ ALVES Laura, NEVEU Gary,YOPA Leonc
 
+## Stack du projet
+
+Le projet se base sur le start-kit de Workadventure, qui a été proposé en `TypeScript`.
+Nous avons aussi une partie backend présente dans `./app/` dévelopé en `NodeJS` et en utilisant le framework `express` ainsi que quelques librairies comme `express-session`, `axios` et le moteur de template `ejs`, ils ont été ajouté pour faciliter le développement.
+
 ## Tester le projet en ligne
 
-Projet accesible a l'addresse suivante : https://play.workadventu.re/@/esgi-1713899647/testing/hub
+Le projet est accesible à l'addresse suivante : https://play.workadventu.re/@/esgi-1713899647/testing/hub
+
+> ⚠️ nous avons authorisé l'accès à tous les comptes twitch peu importe les abonnements que le compte possède
+```js 
+if (isSubscribed || true) { // le || true permet d'autorisé tous les comptes
+      const member = await UserServices.addRoleToMember(
+        app.WA,
+        memberID,
+        "isSubscribed.tier"
+      );
+      req.session.user = {
+        twitch: user,
+        accessToken,
+        member,
+        isSubscribed: true,
+      };
+      req.session.save();
+      res.render("success.ejs", { user: req.session.user, withContinue: true });
+    } else {
+      req.session.user = {
+        twitch: user,
+        accessToken,
+        member: null,
+        isSubscribed: false,
+      };
+      req.session.save();
+      res.render("failure.ejs", {});
+    }
+```
 
 ## Lancer le projet en local
 
