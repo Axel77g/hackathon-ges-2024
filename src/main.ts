@@ -15,7 +15,7 @@ WA.onInit()
 
     function handleNotConnected() {
       if (
-        !WA.room.mapURL.includes("hub") &&
+        !WA.room.mapURL.replace("github", "").includes("hub") &&
         !WA.player.tags.some((tag) => tag.startsWith("subscribed"))
       ) {
         let id = WA.room.id.replace("https://play.workadventu.re", "");
