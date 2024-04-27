@@ -4,7 +4,7 @@ const popupTest = async () => {
       WA.room.onEnterLayer("RediffClipAreaPopup").subscribe(async () => {
         
             board = await WA.ui.website.open({
-                url: "./pages/popup.html",
+                url: "/pages/popup.html",
                 position: {
                   vertical: "bottom",
                   horizontal: "left",
