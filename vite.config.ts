@@ -28,7 +28,7 @@ export default defineConfig({
             input: {
                 index: "./index.html",
                 ...getMapsScripts(maps),
-                popup: ".pages/popop.html"
+                popup: "./src/pages/popop.html"
             },
         },
     },
