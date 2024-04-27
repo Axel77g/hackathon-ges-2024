@@ -31,7 +31,7 @@ WA.onInit()
     });
 
     handleNotConnected();
-    /* fetch("https://localhost:3000/is-connected", {
+    /* fetch("https://hackathon-ges.axelgodefroy.fr/is-connected", {
       method: "POST",
       credentials: "include",
       headers: {
