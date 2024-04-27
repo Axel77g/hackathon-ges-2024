@@ -16,7 +16,7 @@ Vous devez être connecté à un compte Workadventure et non en tant qu'invité,
 
 > ⚠️ nous avons autorisé l'accès à tous les comptes twitch peu importe les abonnements que le compte possède pour faciliter vos tests
 ```js 
-if (isSubscribed || true) { // le "|| true" permet d'autorisé tous les comptes
+if (isSubscribed || true) { // le "|| true" permet d'autoriser tous les comptes twitch connectés
       const member = await UserServices.addRoleToMember(
         app.WA,
         memberID,
