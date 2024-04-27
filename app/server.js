@@ -11,13 +11,16 @@ import { LoginQueue } from "./lib/LoginQueue.js";
 import cookieParser from "cookie-parser";
 import { UserServices } from "./Services/UserServices.js";
 
-const options = {
-  key: fs.readFileSync(process.env.SSL_KEY_PATH),
-  cert: fs.readFileSync(process.env.SSL_CERT_PATH),
-};
-
 const app = express();
-https.createServer(options, app).listen(3000);
+if (process.env.HTTPS) {
+  const options = {
+    key: fs.readFileSync(process.env.SSL_KEY_PATH),
+    cert: fs.readFileSync(process.env.SSL_CERT_PATH),
+  };
+  https.createServer(options, app).listen(3000);
+} else {
+  app.listen(3000);
+}
 
 app.use(cors());
 app.set("view engine", "ejs");
