@@ -7,11 +7,41 @@ console.log("Script started successfully");
 
 let numberViewers: number = 0;
 let currentPopup: any = undefined;
+
+WA.player.state.points = 0;
+
+function risePoints(pointValue: number) {
+    console.log(pointValue);
+    WA.event.broadcast("point-update", pointValue);
+}
+
 // Attendre que l'API soit prête
 WA.onInit()
   .then(() => {
     console.log("Scripting API ready");
     console.log("Player tags: ", WA.player.tags);
+
+    setInterval(() =>
+      {   
+        WA.player.state.points += 1;
+        risePoints(WA.player.state.points);
+      }, 2000);
+
+    WA.ui.website.open({
+      url: `./src/points/playerPoint.html`,
+      position: {
+          vertical: "top",
+          horizontal: "right",
+      },
+      size: {
+          height: "100vw",
+          width: "10vw",
+      },
+      margin: {
+          top: "5px",
+          right: "5px",
+      }
+    });
 
     /**
      * Redirige les joueurs non connectés vers la salle d'accueil si il n'y est pas
