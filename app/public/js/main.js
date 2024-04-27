@@ -41,6 +41,9 @@ function bootstrapLogin() {
     } else {
       link.href = "#";
       link.style.opacity = 0.5;
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+      });
       link.innerHTML = "Vous devez être connecté a Workadventure";
     }
   });
