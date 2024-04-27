@@ -36,6 +36,7 @@ WA.onInit()
      * Event emis par l'iframe login lorsque la connexion est terminée
      */
     WA.event.on("connectionState").subscribe((event) => {
+      console.log("connectionState", event.data);
       if (event.data == WA.player.uuid) handleConnected();
     });
     handleNotConnected();
