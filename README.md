@@ -14,7 +14,7 @@ Le projet est accesible à l'addresse suivante : https://play.workadventu.re/@/e
 
 Vous devez être connecté à un compte Workadventure et non en tant qu'invité, dû une contrainte de l'inbound api de WorkAdventure
 
-> ⚠️ nous avons autorisé l'accès à tous les comptes twitch peu importe les abonnements que le compte possède pour facilité vos tests
+> ⚠️ nous avons autorisé l'accès à tous les comptes twitch peu importe les abonnements que le compte possède pour faciliter vos tests
 ```js 
 if (isSubscribed || true) { // le "|| true" permet d'autorisé tous les comptes
       const member = await UserServices.addRoleToMember(
@@ -56,7 +56,7 @@ Il vous faudrat avant:
 
 ### Modifier la map pour pointer vers votre serveur local
 
-Pour lancer en local le projet vous devez modifier le fichier `hub.tmj` et remplacer toutes les occurance de `hackathon.axelgodefroy.fr` par `localhost:3000` puis lancer les commandes : 
+Pour lancer en local le projet vous devez modifier le fichier `hub.tmj` et remplacer toutes les occurancew de `hackathon.axelgodefroy.fr` par `localhost:3000` puis lancer les commandes : 
 ```bash
 npm run dev
 ```
@@ -65,7 +65,7 @@ et
 npm run dev:server
 ```
 
-Rendez-vous sur localhost:5173 pour accéder a la map.
+Rendez-vous sur localhost:5173 pour accéder à la map.
 
 ## Fonctionnalités & répartition des tâches
 
