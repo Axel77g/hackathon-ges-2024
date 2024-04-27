@@ -606,7 +606,7 @@
                         {
                          "name":"exitUrl",
                          "type":"string",
-                         "value":"baseeffect.tmj#fromHub"
+                         "value":"subonly"
                         }],
                  "rotation":0,
                  "type":"area",
