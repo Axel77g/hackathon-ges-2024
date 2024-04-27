@@ -1,55 +1,30 @@
-# WorkAdventure Map Starter Kit
+# Hackathon GES 20224 - Groupe 3
 
-![map](./map.png)
+> BOULAHNINE Yassine, DIALLO  Abdoulaye, GODEFROY Axel, MARTINEZ ALVES Laura, NEVEU Gary,YOPA Leonc
 
-This is a starter kit to help you build your own map for [WorkAdventure](https://workadventu.re).
+Projet accesible a l'addresse suivante : https://play.workadventu.re/@/esgi-1713899647/testing/hub
 
-To understand how to use this starter kit, follow the tutorial at [https://workadventu.re/map-building](https://workadventu.re/map-building).
 
-## Structure
-* *public*: Static files like PDFs or audio files
-* *src*: Scripts files
-* *tilesets*: All tilesets
-* *map.tmj*: Map file
-* *map.png*: The map thumbnail displayed on the in-game map information
 
-If you want to use more than one map file, just add the new map file on root or in a folder.
+## Lancer le projet en local (déconseillé)
 
-we recommend using 500x500 images for the map thumbnails.
+### Préparer votre environement
+Vous devez avant toute chose installer un certificat SSL sur votre localhost, il est obligatoire pour le fonctionnement des cookies tiers utilisé pour faire fonctionner le login avec twitch : pour se faire vous pouvez suivre [ce guide](https://web.dev/articles/how-to-use-local-https?hl=fr).
 
-If you are going to create custom websites to embed in the map, please reference the HTML files in the `input` option in *vite.config.js*.
+Par la suite vous pouvez configuré le `app/.env` 
+voici un exemple
+```
+```
 
-## Requirements
+### Modifier la map pour pointer vers votre serveur local
 
-Node.js version >=17
-
-## Installation
-
-With npm installed (comes with [node](https://nodejs.org/en/)), run the following commands into a terminal in the root directory of this project:
-
-```shell
-npm install
+Pour lancer en local le projet vous devez modifier le fichier `hub.tmj` et remplacer toutes les occurance de `hackathon.axelgodefroy.fr` par `localhost:3000` puis lancer les commandes : 
+```bash
 npm run dev
 ```
-
-## Test production map
-
-You can test the optimized map as it will be in production:
-```sh
-npm run build
-npm run prod
+et 
+```
+npm run dev:server
 ```
 
-## Licenses
-
-This project contains multiple licenses as follows:
-
-* [Code license](./LICENSE.code) *(all files except those for other licenses)*
-* [Map license](./LICENSE.map) *(`map.tmj` and the map visual as well)*
-* [Assets license](./LICENSE.assets) *(the files inside the `src/assets/` folder)*
-
-### About third party assets
-
-If you add third party assets in your map, do not forget to:
-1. Credit the author and license with the "tilesetCopyright" property present in the properties of each tilesets in the `map.tmj` file
-2. Add the license text in LICENSE.assets
+Rendez-vous sur localhost:5173 pour accéder a la map.
