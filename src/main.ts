@@ -189,7 +189,7 @@ WA.onInit()
     WA.room.area.onEnter("RediffClipAreaPopup").subscribe(() => {
       currentPopup = WA.ui.openPopup("RediffClipPopup", "Rediffs et clips", []);
       console.log(WA.state.loadVariable('popupTitle'));
-      //popupTest();
+      popupTest();
     });
     WA.room.area.onLeave("RediffClipAreaPopup").subscribe(closePopup);
     
