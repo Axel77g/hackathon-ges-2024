@@ -69,49 +69,50 @@ app.post("/is-connected", async (req, res) => {
 });
 
 app.get("/success", (req, res) => {
-  console.log(req.session.user);
   res.render("success.ejs", { user: req.session.user, withContinue: false });
 });
 
-app.get("/oauth", async (req, res) => {
-  const { code, state } = req.query;
-  if (!code && !state) throw new HTTPError(400, "Bad Request");
+app.get("/oauth", (req, res) => {
+  HTTPError.handle(async () => {
+    const { code, state } = req.query;
+    if (!code && !state) throw new HTTPError(400, "Bad Request");
 
-  const response = await Twitch.getAccessToken(code);
-  if (!response) throw new HTTPError(500, "Internal Server Error");
-  const accessToken = response.access_token;
+    const response = await Twitch.getAccessToken(code);
+    if (!response) throw new HTTPError(500, "Internal Server Error");
+    const accessToken = response.access_token;
 
-  const memberID = Buffer.from(state, "base64").toString("utf8");
-  const user = await Twitch.getUserInfo(accessToken);
+    const memberID = Buffer.from(state, "base64").toString("utf8");
+    const user = await Twitch.getUserInfo(accessToken);
 
-  const isSubscribed = await UserServices.isSubscribedToChannel(
-    accessToken,
-    user.id,
-    "28575692"
-  );
-
-  if (isSubscribed || true) {
-    const member = await UserServices.addRoleToMember(
-      app.WA,
-      memberID,
-      "isSubscribed.tier"
+    const isSubscribed = await UserServices.isSubscribedToChannel(
+      accessToken,
+      user.id,
+      "28575692"
     );
-    req.session.user = {
-      twitch: user,
-      accessToken,
-      member,
-      isSubscribed: true,
-    };
-    req.session.save();
-    res.render("success.ejs", { user: req.session.user, withContinue: true });
-  } else {
-    req.session.user = {
-      twitch: user,
-      accessToken,
-      member: null,
-      isSubscribed: false,
-    };
-    req.session.save();
-    res.render("failure.ejs", {});
-  }
+
+    if (isSubscribed || true) {
+      const member = await UserServices.addRoleToMember(
+        app.WA,
+        memberID,
+        "isSubscribed.tier"
+      );
+      req.session.user = {
+        twitch: user,
+        accessToken,
+        member,
+        isSubscribed: true,
+      };
+      req.session.save();
+      res.render("success.ejs", { user: req.session.user, withContinue: true });
+    } else {
+      req.session.user = {
+        twitch: user,
+        accessToken,
+        member: null,
+        isSubscribed: false,
+      };
+      req.session.save();
+      res.render("failure.ejs", {});
+    }
+  }, res);
 });
