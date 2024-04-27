@@ -12,7 +12,7 @@ Nous avons aussi une partie backend présente dans `./app/` dévelopé en `NodeJ
 
 Le projet est accesible à l'addresse suivante : https://play.workadventu.re/@/esgi-1713899647/testing/hub
 
-Vous devez être connecté à un compte Workadventure et non en tant qu'invité, dû une contrainte de l'inbound api de WorkAdventure
+Vous devez être connecté à un compte Workadventure et non en tant qu'invité, dû a une contrainte de l'inbound api de WorkAdventure
 
 > ⚠️ nous avons autorisé l'accès à tous les comptes twitch peu importe les abonnements que le compte possède pour faciliter vos tests
 ```js 
@@ -48,15 +48,22 @@ if (isSubscribed || true) { // le "|| true" permet d'autoriser tous les comptes 
 
 Avant toute chose, vous devez installer un certificat SSL sur votre localhost, il est obligatoire pour le fonctionnement des cookies tiers, ils sont utilisés afin de faire fonctionner le login avec twitch. Vous pouvez suivre les étapes de [ce guide](https://web.dev/articles/how-to-use-local-https?hl=fr).
 
-Par la suite vous pouvez configuré le `app/.env` en suivant le `app/env.example`
-
-Il vous faudrat avant:
+Il vous faudrat ensuite:
 - [Créer une application twitch pour faire une connexion SSO](https://dev.twitch.tv/console/apps)
 - [Créer une application Workadventure](https://admin.workadventu.re/?view=developers)
 
+Avec cela vous pourrez configurer le `app/.env` en suivant le `app/env.example`
+
+Installer les dépendances npm :
+
+```bash
+npm install
+```
+
 ### Modifier la map pour pointer vers votre serveur local
 
-Pour lancer en local le projet vous devez modifier le fichier `hub.tmj` et remplacer toutes les occurancew de `hackathon.axelgodefroy.fr` par `localhost:3000` puis lancer les commandes : 
+Pour lancer en local le projet vous devez modifier le fichier `hub.tmj` et remplacer toutes les occurances de `hackathon.axelgodefroy.fr` par `localhost:3000` puis lancer les commandes suivantes :
+ 
 ```bash
 npm run dev
 ```
