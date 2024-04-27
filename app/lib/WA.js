@@ -40,9 +40,6 @@ export class WA {
    * @returns
    */
   async getMember(memberId) {
-    console.log(
-      `${process.env.WA_API_ENDPOINT}/${this.worldslug}/members/${memberId}`
-    );
     const response = await axios.get(
       `${process.env.WA_API_ENDPOINT}/${this.worldslug}/members/${memberId}`,
       { headers: WA.headers }

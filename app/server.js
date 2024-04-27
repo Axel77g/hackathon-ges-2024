@@ -83,7 +83,6 @@ app.get("/oauth", (req, res) => {
 
     // Récupération des informations de l'utilisateur twitch et de l'uid du membre WA
     const memberID = Buffer.from(state, "base64").toString("utf8");
-    console.log(memberID);
     const user = await Twitch.getUserInfo(accessToken);
 
     // Vérification de l'abonnement à la chaine
@@ -95,7 +94,6 @@ app.get("/oauth", (req, res) => {
 
     // Ajout du tag subscribed_tier au membre WA si l'utilisateur est abonné
     if (isSubscribed || true) {
-      console.log(memberID);
       const member = await UserServices.addRoleToMember(
         app.WA,
         memberID,

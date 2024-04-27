@@ -41,7 +41,6 @@ export class Twitch {
     );
     try {
       const data = await request.call();
-      console.log("lala", data);
       return data;
     } catch (error) {
       if (error.status === 404) return false;
@@ -119,7 +118,6 @@ class TwitchRequest {
         .then((response) => resolve(response.data))
         .catch((error) => {
           if (error.response) {
-            //console.log(error.response);
             reject(
               new HTTPError(error.response.status, error.response.data.message)
             );

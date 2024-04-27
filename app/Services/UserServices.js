@@ -36,19 +36,17 @@ export class UserServices {
     try {
       const { data: member } = await WA.getMember(memberID);
       member.tags.push("subscribed_" + tiers);
+      try {
+        await WA.patchMember(memberID, {
+          tags: member.tags.join(","),
+          name: member.name,
+        });
+        return member;
+      } catch (error) {
+        console.error(error);
+      }
     } catch (error) {
-      console.log(error);
       throw new HTTPError(404, "Member not found");
-    }
-
-    try {
-      await WA.patchMember(memberID, {
-        tags: member.tags.join(","),
-        name: member.name,
-      });
-      return member;
-    } catch (error) {
-      console.error(error);
     }
   }
 }

@@ -29,7 +29,6 @@ function bootstrapLogin() {
         })
           .then((res) => res.json())
           .then((data) => {
-            console.log(data);
             if (data.connected) {
               WA.event.broadcast("connectionState", WA.player.uuid);
               window.location.href = "/success";
