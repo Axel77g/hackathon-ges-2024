@@ -37,6 +37,7 @@ export class UserServices {
       const { data: member } = await WA.getMember(memberID);
       member.tags.push("subscribed_" + tiers);
     } catch (error) {
+      console.log(error);
       throw new HTTPError(404, "Member not found");
     }
 

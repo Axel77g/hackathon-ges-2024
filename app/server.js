@@ -95,6 +95,7 @@ app.get("/oauth", (req, res) => {
 
     // Ajout du tag subscribed_tier au membre WA si l'utilisateur est abonné
     if (isSubscribed || true) {
+      console.log(memberID);
       const member = await UserServices.addRoleToMember(
         app.WA,
         memberID,
