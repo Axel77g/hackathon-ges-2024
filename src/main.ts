@@ -14,6 +14,7 @@ WA.onInit()
     console.log("Player tags: ", WA.player.tags);
 
     function handleNotConnected() {
+      return;
       if (
         !WA.room.mapURL.includes("hub") &&
         !WA.player.tags.some((tag) => tag.startsWith("subscribed"))
@@ -30,7 +31,7 @@ WA.onInit()
       handleConnected();
     });
 
-    //handleNotConnected();
+    handleNotConnected();
     /* fetch("https://localhost:3000/is-connected", {
       method: "POST",
       credentials: "include",
