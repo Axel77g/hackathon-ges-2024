@@ -46,7 +46,7 @@ if (isSubscribed || true) { // le "|| true" permet d'autorisé tous les comptes
 
 ### Préparer votre environement
 
-Vous devez avant toute chose installer un certificat SSL sur votre localhost, il est obligatoire pour le fonctionnement des cookies tiers utilisé pour faire fonctionner le login avec twitch : pour se faire vous pouvez suivre [ce guide](https://web.dev/articles/how-to-use-local-https?hl=fr).
+Avant toute chose, vous devez installer un certificat SSL sur votre localhost, il est obligatoire pour le fonctionnement des cookies tiers, ils sont utilisés afin de faire fonctionner le login avec twitch. Vous pouvez suivre les étapes de [ce guide](https://web.dev/articles/how-to-use-local-https?hl=fr).
 
 Par la suite vous pouvez configuré le `app/.env` en suivant le `app/env.example`
 
