@@ -1,14 +1,25 @@
+/**
+ * Ce fichier est charger dans plusieurs pages de l'application mais les fonctions sont ciblé par url
+ */
+/**
+ * Récupere le uuid du membre et le converti en base64 pour mettre a jours le lien de connexion twitch
+ * Verifie si le membre est connecté toute les 3 secondes pour 20 essais
+ * Si le membre est connecté, redirige vers /success
+ * Envoie un event pour mettre a jours l'etat de connexion du membre (/src/main.tsx)
+ * @call /login
+ */
 function bootstrapLogin() {
   let tries = 0;
   WA.onInit().then(async () => {
+    //ajoute le uuid du membre en base64 au lien de connexion twitch
     const link = document.getElementById("link");
     const base64UUID = btoa(WA.player.uuid);
     link.href = link.href + "&state=" + base64UUID;
 
+    //verification de la connexion
     while (tries < 20) {
       fetch("/is-connected", {
         method: "POST",
-
         credentials: "same-origin",
         headers: {
           "Content-Type": "application/json",

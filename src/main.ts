@@ -13,6 +13,9 @@ WA.onInit()
     console.log("Scripting API ready");
     console.log("Player tags: ", WA.player.tags);
 
+    /**
+     * Redirige les joueurs non connectés vers la salle d'accueil si il n'y est pas
+     */
     function handleNotConnected() {
       if (
         !WA.room.mapURL.replace("github", "").includes("hub") &&
@@ -22,33 +25,20 @@ WA.onInit()
         WA.nav.goToRoom(id.replace(/(.+\/).+/, "hub"));
       }
     }
+    /**
+     * Ajoute un role temporaire pour ouvrir la porte
+     */
     function handleConnected() {
       WA.player.tags.push("subscribed_temp");
     }
 
+    /**
+     * Event emis par l'iframe login lorsque la connexion est terminée
+     */
     WA.event.on("connectionState").subscribe((event) => {
       if (event.data == WA.player.uuid) handleConnected();
     });
-
-    WA.event.broadcast("connectionState", "test");
-
     handleNotConnected();
-    /* fetch("https://hackathon-ges.axelgodefroy.fr/is-connected", {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        debugger;
-        if (data.connected) {
-          handleConnected();
-        } else {
-          handleNotConnected();
-        }
-      }); */
 
     // Configurer le suivi des joueurs
     WA.players.configureTracking();

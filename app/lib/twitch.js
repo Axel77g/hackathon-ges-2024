@@ -13,6 +13,9 @@ export class Twitch {
     scope: process.env.TWITCH_SCOPE,
   };
 
+  /**
+   * recupere l'url de connexion twitch
+   */
   static get oauthURL() {
     const queryString = Object.keys(this.query)
       .map((key) => `${key}=${this.query[key]}`)
@@ -20,6 +23,13 @@ export class Twitch {
     return `https://id.twitch.tv/oauth2/authorize?${queryString}`;
   }
 
+  /**
+   *  Verifie si un utilisateur est abonné à une chaine
+   * @param {String} accessToken token d'acces de l'utilisateur
+   * @param {String} userId id de l'utilisateur
+   * @param {String} broadcasterId id de la chaine
+   * @returns
+   */
   static async isUserIsSubscribedToChannel(accessToken, userId, broadcasterId) {
     const request = new TwitchRequest(
       axios.get(
@@ -38,7 +48,12 @@ export class Twitch {
       else throw error;
     }
   }
-
+  /**
+   *  Recupere les informations de l'utilisateur
+   * @param {String} accessToken
+   * @returns {Object}
+   * @throws {HTTPError}
+   */
   static async getUserInfo(accessToken) {
     const request = new TwitchRequest(
       axios.get("https://api.twitch.tv/helix/users", {
@@ -50,14 +65,22 @@ export class Twitch {
       throw new HTTPError(401, "Unauthorized");
     } else return data[0];
   }
-
+  /**
+   * Récupere les headers utiles pour les requetes twitch
+   * @param {String} accessToken
+   * @returns
+   */
   static getHeaders(accessToken) {
     return {
       Authorization: "Bearer " + accessToken,
       "Client-Id": CLIENT_ID,
     };
   }
-
+  /**
+   * Genere un access token avec le code oauth génére par twitch
+   * @param {String} code
+   * @returns
+   */
   static async getAccessToken(code) {
     const urlEncodedBody = new URLSearchParams({
       client_id: CLIENT_ID,
@@ -82,6 +105,9 @@ export class Twitch {
   }
 }
 
+/**
+ * Classe Helper permettant de gerer les requetes vers l'api twitch
+ */
 class TwitchRequest {
   constructor(axiosRequestPromise) {
     this.promise = axiosRequestPromise;

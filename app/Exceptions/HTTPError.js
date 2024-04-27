@@ -1,8 +1,15 @@
+/**
+ * HTTPError class
+ *
+ */
 export class HTTPError extends Error {
   constructor(status, message) {
     super(message);
     this.status = status;
   }
+  /**
+   * Permet de prendre en charge les erreurs HTTP et afficher une réponse appropriée
+   */
   static async handle(callback, res) {
     try {
       await callback();
