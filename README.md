@@ -1,6 +1,7 @@
 # Hackathon GES 20224 - Groupe 3
 
-> BOULAHNINE Yassine, DIALLO  Abdoulaye, GODEFROY Axel, MARTINEZ ALVES Laura, NEVEU Gary,YOPA Leonc
+> BOULAHNINE Yassine, DIALLO  Abdoulaye, GODEFROY Axel, MARTINEZ ALVES Laura, NEVEU Gary, YOPA Leonc
+> Développeurs : BOULAHNINE Yassine, GODEFROY Axel, NEVEU Gary, YOPA Leonc
 
 ## Stack du projet
 
@@ -11,9 +12,9 @@ Nous avons aussi une partie backend présente dans `./app/` dévelopé en `NodeJ
 
 Le projet est accesible à l'addresse suivante : https://play.workadventu.re/@/esgi-1713899647/testing/hub
 
-> ⚠️ nous avons authorisé l'accès à tous les comptes twitch peu importe les abonnements que le compte possède
+> ⚠️ nous avons autorisé l'accès à tous les comptes twitch peu importe les abonnements que le compte possède
 ```js 
-if (isSubscribed || true) { // le || true permet d'autorisé tous les comptes
+if (isSubscribed || true) { // le "|| true" permet d'autorisé tous les comptes
       const member = await UserServices.addRoleToMember(
         app.WA,
         memberID,
@@ -63,3 +64,11 @@ npm run dev:server
 ```
 
 Rendez-vous sur localhost:5173 pour accéder a la map.
+
+## Fonctionnalités & répartition des tâches
+
+Login SSO : Axel GODEFROY
+Porte : 
+Musiques : 
+Popups : 
+Intégration des iframes :
