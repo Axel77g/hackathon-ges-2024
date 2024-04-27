@@ -27,17 +27,17 @@ app.use(express.static("public"));
 app.use(cookieParser());
 
 app.use(
-    session({
-      secret: "toepoekk",
-      resave: false,
-      saveUninitialized: true,
-      cookie: {
-        secure: true,
-        httpOnly: true,
-        sameSite: "none",
-        maxAge: 60 * 60 * 24 * 1000,
-      },
-    })
+  session({
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      secure: true,
+      httpOnly: true,
+      sameSite: "none",
+      maxAge: 60 * 60 * 24 * 1000,
+    },
+  })
 );
 
 app.WA = new WA(process.env.WA_WORLD_SLUG);
@@ -56,7 +56,6 @@ app.use((err, req, res, next) => {
 });
 
 app.get("/login", (req, res) => {
-  console.log(req.session, req.cookies);
   res.render("login.ejs", { url: Twitch.oauthURL });
 });
 
@@ -67,7 +66,8 @@ app.post("/is-connected", async (req, res) => {
 });
 
 app.get("/success", (req, res) => {
-  res.render("success.ejs", {});
+  console.log(req.session.user);
+  res.render("success.ejs", { user: req.session.user, withContinue: false });
 });
 
 app.get("/oauth", async (req, res) => {
@@ -82,16 +82,16 @@ app.get("/oauth", async (req, res) => {
   const user = await Twitch.getUserInfo(accessToken);
 
   const isSubscribed = await UserServices.isSubscribedToChannel(
-      accessToken,
-      user.id,
-      "28575692"
+    accessToken,
+    user.id,
+    "28575692"
   );
 
   if (isSubscribed || true) {
     const member = await UserServices.addRoleToMember(
-        app.WA,
-        memberID,
-        "isSubscribed.tier"
+      app.WA,
+      memberID,
+      "isSubscribed.tier"
     );
     req.session.user = {
       twitch: user,
@@ -100,7 +100,7 @@ app.get("/oauth", async (req, res) => {
       isSubscribed: true,
     };
     req.session.save();
-    res.render("success.ejs", {});
+    res.render("success.ejs", { user: req.session.user, withContinue: true });
   } else {
     req.session.user = {
       twitch: user,

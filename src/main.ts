@@ -7,19 +7,48 @@ console.log("Script started successfully");
 
 let numberViewers: number = 0;
 let currentPopup: any = undefined;
-
 // Attendre que l'API soit prête
 WA.onInit()
   .then(() => {
     console.log("Scripting API ready");
     console.log("Player tags: ", WA.player.tags);
-    if (
-      !WA.room.mapURL.includes("hub") &&
-      !WA.player.tags.some((tag) => tag.startsWith("subscribed"))
-    ) {
-      WA.nav.goToRoom("/_/jxy97572jpf/localhost:5173/hub.tmj");
+
+    function handleNotConnected() {
+      if (
+        !WA.room.mapURL.includes("hub") &&
+        !WA.player.tags.some((tag) => tag.startsWith("subscribed"))
+      ) {
+        let id = WA.room.id.replace("https://play.workadventu.re", "");
+        WA.nav.goToRoom(id.replace(/(.+\/).+\.tmj/, "$1hub.tmj"));
+      }
     }
-   // Configurer le suivi des joueurs
+    function handleConnected() {
+      WA.player.tags.push("subscribed_temp");
+    }
+
+    WA.event.on("connectionState").subscribe(() => {
+      handleConnected();
+    });
+
+    //handleNotConnected();
+    /* fetch("https://localhost:3000/is-connected", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        debugger;
+        if (data.connected) {
+          handleConnected();
+        } else {
+          handleNotConnected();
+        }
+      }); */
+
+    // Configurer le suivi des joueurs
     WA.players.configureTracking();
 
     // Détecter l'entrée dans la zone 'live'
@@ -42,40 +71,40 @@ WA.onInit()
     });
 
     WA.room.area.onEnter("liveArea2").subscribe(() => {
-        console.log("liveArea2");
-  
-        // Incrémenter le nombre de téléspectateurs pour chaque joueur dans la liste
-        let players = WA.players.list();
-        for (let player of players) {
-          numberViewers++;
-          console.log("les joueurs", players, player);
-        }
-  
-        console.log("Number of viewers after entering:", numberViewers);
-  
-        // Sauvegarder le nombre de téléspectateurs
-        WA.state.saveVariable("varNumber2", {
-          default: numberViewers,
-        });
-      });
+      console.log("liveArea2");
 
-      WA.room.area.onEnter("liveArea3").subscribe(() => {
-        console.log("liveArea3");
-  
-        // Incrémenter le nombre de téléspectateurs pour chaque joueur dans la liste
-        let players = WA.players.list();
-        for (let player of players) {
-          numberViewers++;
-          console.log("les joueurs", players, player);
-        }
-  
-        console.log("Number of viewers after entering:", numberViewers);
-  
-        // Sauvegarder le nombre de téléspectateurs
-        WA.state.saveVariable("varNumber3", {
-          default: numberViewers,
-        });
+      // Incrémenter le nombre de téléspectateurs pour chaque joueur dans la liste
+      let players = WA.players.list();
+      for (let player of players) {
+        numberViewers++;
+        console.log("les joueurs", players, player);
+      }
+
+      console.log("Number of viewers after entering:", numberViewers);
+
+      // Sauvegarder le nombre de téléspectateurs
+      WA.state.saveVariable("varNumber2", {
+        default: numberViewers,
       });
+    });
+
+    WA.room.area.onEnter("liveArea3").subscribe(() => {
+      console.log("liveArea3");
+
+      // Incrémenter le nombre de téléspectateurs pour chaque joueur dans la liste
+      let players = WA.players.list();
+      for (let player of players) {
+        numberViewers++;
+        console.log("les joueurs", players, player);
+      }
+
+      console.log("Number of viewers after entering:", numberViewers);
+
+      // Sauvegarder le nombre de téléspectateurs
+      WA.state.saveVariable("varNumber3", {
+        default: numberViewers,
+      });
+    });
 
     // Détecter la sortie de la zone 'jitsiChillZone'
     WA.room.area.onLeave("liveArea1").subscribe(() => {
@@ -150,7 +179,7 @@ WA.onInit()
     });
 
     WA.room.onEnterLayer("openDoorZone").subscribe(() => {
-      if (WA.player.tags.includes("subscribed_1000")) {
+      if (WA.player.tags.some((tag) => tag.startsWith("subscribed"))) {
         WA.room.showLayer("above/openDoor");
         WA.room.hideLayer("closeDoor");
       } else {
@@ -160,7 +189,7 @@ WA.onInit()
     });
 
     WA.room.area.onEnter("connexion_popup").subscribe(() => {
-      if (!WA.player.tags.includes("subscribed_1000")) {
+      if (!WA.player.tags.some((tag) => tag.startsWith("subscribed"))) {
         currentPopup = WA.ui.openPopup(
           "message",
           "Vous devez vous être connecté pour entrer",

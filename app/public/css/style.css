@@ -1,0 +1,33 @@
+@font-face {
+  font-family: "Roobert";
+  src: url("/fonts/RoobertMedium.ttf");
+}
+
+body {
+  font-family: "Roobert";
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+h1 {
+  text-align: center;
+  font-weight: 300;
+}
+a {
+  text-decoration: none;
+  background-color: #6441a5;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  min-width: 100px;
+  white-space: nowrap;
+  margin-left: auto;
+  margin-right: auto;
+  transition: 0.5s;
+  text-transform: uppercase;
+}
+
+a:hover {
+  background-color: #4f2d7f;
+}

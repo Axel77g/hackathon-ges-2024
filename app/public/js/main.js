@@ -8,6 +8,7 @@ function bootstrapLogin() {
     while (tries < 20) {
       fetch("/is-connected", {
         method: "POST",
+
         credentials: "same-origin",
         headers: {
           "Content-Type": "application/json",
@@ -16,9 +17,9 @@ function bootstrapLogin() {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           if (data.connected) {
             window.location.href = "/success";
+            WA.event.broadcast("connectionState", "connected");
           }
         });
       tries++;

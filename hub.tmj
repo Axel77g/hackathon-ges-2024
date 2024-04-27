@@ -585,6 +585,11 @@
                          "name":"openWebsite",
                          "type":"string",
                          "value":"https:\/\/localhost:3000\/login"
+                        }, 
+                        {
+                         "name":"openWebsiteAllowApi",
+                         "type":"bool",
+                         "value":true
                         }],
                  "rotation":0,
                  "type":"area",
