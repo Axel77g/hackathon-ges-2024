@@ -12,7 +12,9 @@ Nous avons aussi une partie backend présente dans `./app/` dévelopé en `NodeJ
 
 Le projet est accesible à l'addresse suivante : https://play.workadventu.re/@/esgi-1713899647/testing/hub
 
-> ⚠️ nous avons autorisé l'accès à tous les comptes twitch peu importe les abonnements que le compte possède
+Vous devez être connecté à un compte Workadventure et non en tant qu'invité, dû une contrainte de l'inbound api de WorkAdventure
+
+> ⚠️ nous avons autorisé l'accès à tous les comptes twitch peu importe les abonnements que le compte possède pour facilité vos tests
 ```js 
 if (isSubscribed || true) { // le "|| true" permet d'autorisé tous les comptes
       const member = await UserServices.addRoleToMember(
