@@ -79,3 +79,7 @@ Intégration des iframes :
 Login SSO Twitch : Axel GODEFROY
 
 Vérification des rôles user :  Axel GODEFROY
+
+## Informations suplémentaires
+
+Drive du projet (video et schema fonctionel) : https://drive.google.com/drive/folders/120_ythLREKk3UEUBP5ln-gdCc53aP4VK?usp=sharing
