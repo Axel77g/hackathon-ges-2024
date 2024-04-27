@@ -19,12 +19,12 @@ WA.onInit()
     ) {
       WA.nav.goToRoom("/_/jxy97572jpf/localhost:5173/hub.tmj");
     }
-    // Configurer le suivi des joueurs
+   // Configurer le suivi des joueurs
     WA.players.configureTracking();
 
-    // Détecter l'entrée dans la zone 'jitsiChillZone'
-    WA.room.area.onEnter("jitsiChillZone").subscribe(() => {
-      console.log("Entering jitsiChillZone");
+    // Détecter l'entrée dans la zone 'live'
+    WA.room.area.onEnter("liveArea1").subscribe(() => {
+      console.log("liveArea1");
 
       // Incrémenter le nombre de téléspectateurs pour chaque joueur dans la liste
       let players = WA.players.list();
@@ -36,14 +36,50 @@ WA.onInit()
       console.log("Number of viewers after entering:", numberViewers);
 
       // Sauvegarder le nombre de téléspectateurs
-      WA.state.saveVariable("varNumber", {
+      WA.state.saveVariable("varNumber1", {
         default: numberViewers,
       });
     });
 
+    WA.room.area.onEnter("liveArea2").subscribe(() => {
+        console.log("liveArea2");
+  
+        // Incrémenter le nombre de téléspectateurs pour chaque joueur dans la liste
+        let players = WA.players.list();
+        for (let player of players) {
+          numberViewers++;
+          console.log("les joueurs", players, player);
+        }
+  
+        console.log("Number of viewers after entering:", numberViewers);
+  
+        // Sauvegarder le nombre de téléspectateurs
+        WA.state.saveVariable("varNumber2", {
+          default: numberViewers,
+        });
+      });
+
+      WA.room.area.onEnter("liveArea3").subscribe(() => {
+        console.log("liveArea3");
+  
+        // Incrémenter le nombre de téléspectateurs pour chaque joueur dans la liste
+        let players = WA.players.list();
+        for (let player of players) {
+          numberViewers++;
+          console.log("les joueurs", players, player);
+        }
+  
+        console.log("Number of viewers after entering:", numberViewers);
+  
+        // Sauvegarder le nombre de téléspectateurs
+        WA.state.saveVariable("varNumber3", {
+          default: numberViewers,
+        });
+      });
+
     // Détecter la sortie de la zone 'jitsiChillZone'
-    WA.room.area.onLeave("jitsiChillZone").subscribe(() => {
-      console.log("Leaving jitsiChillZone");
+    WA.room.area.onLeave("liveArea1").subscribe(() => {
+      console.log("Leaving liveArea1");
       numberViewers = 0;
       // Décrémenter le nombre de téléspectateurs pour chaque joueur dans la liste
       let players = WA.players.list();
@@ -60,7 +96,55 @@ WA.onInit()
       console.log("Number of viewers after leaving:", numberViewers);
 
       // Sauvegarder le nombre de téléspectateurs
-      WA.state.saveVariable("varNumber", {
+      WA.state.saveVariable("varNumber1", {
+        default: numberViewers,
+      });
+    });
+
+    // Détecter la sortie de la zone 'jitsiChillZone'
+    WA.room.area.onLeave("liveArea2").subscribe(() => {
+      console.log("Leaving liveArea2");
+      numberViewers = 0;
+      // Décrémenter le nombre de téléspectateurs pour chaque joueur dans la liste
+      let players = WA.players.list();
+      for (let player of players) {
+        numberViewers++;
+        console.log(player);
+      }
+
+      // S'assurer que le nombre de téléspectateurs ne devienne pas négatif
+      if (numberViewers < 0) {
+        numberViewers = 0;
+      }
+
+      console.log("Number of viewers after leaving:", numberViewers);
+
+      // Sauvegarder le nombre de téléspectateurs
+      WA.state.saveVariable("varNumber2", {
+        default: numberViewers,
+      });
+    });
+
+    // Détecter la sortie de la zone 'jitsiChillZone'
+    WA.room.area.onLeave("liveArea3").subscribe(() => {
+      console.log("Leaving liveArea3");
+      numberViewers = 0;
+      // Décrémenter le nombre de téléspectateurs pour chaque joueur dans la liste
+      let players = WA.players.list();
+      for (let player of players) {
+        numberViewers++;
+        console.log(player);
+      }
+
+      // S'assurer que le nombre de téléspectateurs ne devienne pas négatif
+      if (numberViewers < 0) {
+        numberViewers = 0;
+      }
+
+      console.log("Number of viewers after leaving:", numberViewers);
+
+      // Sauvegarder le nombre de téléspectateurs
+      WA.state.saveVariable("varNumber3", {
         default: numberViewers,
       });
     });
