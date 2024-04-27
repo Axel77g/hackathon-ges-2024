@@ -19,7 +19,7 @@ function bootstrapLogin() {
         .then((data) => {
           if (data.connected) {
             window.location.href = "/success";
-            WA.event.broadcast("connectionState", "connected");
+            WA.event.broadcast("connectionState", WA.player.uuid);
           }
         });
       tries++;

@@ -26,9 +26,11 @@ WA.onInit()
       WA.player.tags.push("subscribed_temp");
     }
 
-    WA.event.on("connectionState").subscribe(() => {
-      handleConnected();
+    WA.event.on("connectionState").subscribe((event) => {
+      if (event.data == WA.player.uuid) handleConnected();
     });
+
+    WA.event.broadcast("connectionState", "test");
 
     handleNotConnected();
     /* fetch("https://hackathon-ges.axelgodefroy.fr/is-connected", {
