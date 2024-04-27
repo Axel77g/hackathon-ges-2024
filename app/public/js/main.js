@@ -29,8 +29,8 @@ function bootstrapLogin() {
         .then((res) => res.json())
         .then((data) => {
           if (data.connected) {
-            window.location.href = "/success";
             WA.event.broadcast("connectionState", WA.player.uuid);
+            window.location.href = "/success";
           }
         });
       tries++;
