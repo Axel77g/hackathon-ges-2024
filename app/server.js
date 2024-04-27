@@ -47,6 +47,10 @@ app.use(
     },
   })
 );
+app.use((req, res, next) => {
+  console.log("New request", req.method, req.url);
+  next();
+});
 
 /**
  * --- Routes ---
@@ -79,6 +83,7 @@ app.get("/oauth", (req, res) => {
 
     // Récupération des informations de l'utilisateur twitch et de l'uid du membre WA
     const memberID = Buffer.from(state, "base64").toString("utf8");
+    console.log(memberID);
     const user = await Twitch.getUserInfo(accessToken);
 
     // Vérification de l'abonnement à la chaine
