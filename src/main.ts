@@ -189,10 +189,17 @@ WA.onInit()
     });
 
     WA.room.area.onEnter("connexion_popup").subscribe(() => {
+      if (!WA.player.tags.some((tag) => tag == "member")) {
+        currentPopup = WA.ui.openPopup(
+          "message",
+          "Vous devez avoir un compte WorkAdventure pour entrer",
+          []
+        );
+      }
       if (!WA.player.tags.some((tag) => tag.startsWith("subscribed"))) {
         currentPopup = WA.ui.openPopup(
           "message",
-          "Vous devez vous être connecté pour entrer",
+          "Vous devez vous être connecté a twitch et être abonné pour entrer",
           []
         );
       }
