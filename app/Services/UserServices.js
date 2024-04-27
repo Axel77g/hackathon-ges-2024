@@ -1,3 +1,4 @@
+import { HTTPError } from "../Exceptions/HTTPError.js";
 import { Twitch } from "../lib/twitch.js";
 
 export class UserServices {
@@ -14,8 +15,13 @@ export class UserServices {
   }
 
   static async addRoleToMember(WA, memberID, tiers) {
-    const { data: member } = await WA.getMember(memberID);
-    member.tags.push("subscribed_" + tiers);
+    try {
+      const { data: member } = await WA.getMember(memberID);
+      member.tags.push("subscribed_" + tiers);
+    } catch (error) {
+      throw new HTTPError(404, "Member not found");
+    }
+
     try {
       await WA.patchMember(memberID, {
         tags: member.tags.join(","),
