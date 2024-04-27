@@ -17,9 +17,9 @@ if (process.env.HTTPS) {
     key: fs.readFileSync(process.env.SSL_KEY_PATH),
     cert: fs.readFileSync(process.env.SSL_CERT_PATH),
   };
-  https.createServer(options, app).listen(3000);
+  https.createServer(options, app).listen(process.env.PORT || 3000);
 } else {
-  app.listen(3000);
+  app.listen(process.env.PORT || 3000);
 }
 
 app.use(cors());
