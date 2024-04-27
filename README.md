@@ -67,8 +67,10 @@ Rendez-vous sur localhost:5173 pour accéder a la map.
 
 ## Fonctionnalités & répartition des tâches
 
-Login SSO : Axel GODEFROY
-Porte : 
+
+La porte d'accès : 
 Musiques : 
 Popups : 
 Intégration des iframes :
+Login SSO Twitch : Axel GODEFROY
+Vérification des rôles user :  Axel GODEFROY
