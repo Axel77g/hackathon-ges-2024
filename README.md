@@ -2,19 +2,21 @@
 
 > BOULAHNINE Yassine, DIALLO  Abdoulaye, GODEFROY Axel, MARTINEZ ALVES Laura, NEVEU Gary,YOPA Leonc
 
+## Tester le projet en ligne
+
 Projet accesible a l'addresse suivante : https://play.workadventu.re/@/esgi-1713899647/testing/hub
 
-
-
-## Lancer le projet en local (déconseillé)
+## Lancer le projet en local
 
 ### Préparer votre environement
+
 Vous devez avant toute chose installer un certificat SSL sur votre localhost, il est obligatoire pour le fonctionnement des cookies tiers utilisé pour faire fonctionner le login avec twitch : pour se faire vous pouvez suivre [ce guide](https://web.dev/articles/how-to-use-local-https?hl=fr).
 
-Par la suite vous pouvez configuré le `app/.env` 
-voici un exemple
-```
-```
+Par la suite vous pouvez configuré le `app/.env` en suivant le `app/env.example`
+
+Il vous faudrat avant:
+- [Créer une application twitch pour faire une connexion SSO](https://dev.twitch.tv/console/apps)
+- [Créer une application Workadventure](https://admin.workadventu.re/?view=developers)
 
 ### Modifier la map pour pointer vers votre serveur local
 
