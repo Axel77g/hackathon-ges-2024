@@ -39,6 +39,8 @@ function bootstrapLogin() {
         await new Promise((resolve) => setTimeout(resolve, 3000));
       }
     } else {
+      link.href = "#";
+      link.style.opacity = 0.5;
       link.innerHTML = "Vous devez être connecté a Workadventure";
     }
   });
