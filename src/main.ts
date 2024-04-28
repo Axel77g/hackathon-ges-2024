@@ -7,11 +7,69 @@ console.log("Script started successfully");
 
 let numberViewers: number = 0;
 let currentPopup: any = undefined;
+WA.player.state.points = 0;
+
+function risePoints(pointValue: number) {
+  WA.event.broadcast("point-update", pointValue);
+}
 // Attendre que l'API soit prête
 WA.onInit()
-  .then(() => {
+  .then(async () => {
     console.log("Scripting API ready");
     console.log("Player tags: ", WA.player.tags);
+
+    setInterval(() =>
+      {   
+        WA.player.state.points += 1;
+        risePoints(WA.player.state.points);
+      }, 2000);
+
+    const pointsCounter = WA.ui.website.open({
+      url: `./src/points/playerPoint.html`,
+      position: {
+          vertical: "top",
+          horizontal: "right",
+      },
+      size: {
+          height: "100vw",
+          width: "10vw",
+      },
+      margin: {
+          top: "5px",
+          right: "5px",
+      },
+      allowApi: true,
+    });
+
+    const pointsMenuUI = await WA.ui.website.open({
+      url: `./src/points/pointsMenu.html`,
+      visible: false,
+      position: {
+          vertical: "middle",
+          horizontal: "middle",
+      },
+      size: {
+          height: "40vw",
+          width: "70vw",
+      },
+      margin: {
+          top: "5px",
+          right: "5px",
+      },
+      allowApi: true,
+    });
+
+    WA.ui.actionBar.addButton({
+      id: 'medal_btn',
+      label: 'Medals',
+      callback: () => {
+        if(pointsMenuUI.visible){
+          pointsMenuUI.visible = false;
+        }else{
+          pointsMenuUI.visible = true;
+        }
+      }
+    });
 
     /**
      * Redirige les joueurs non connectés vers la salle d'accueil si il n'y est pas

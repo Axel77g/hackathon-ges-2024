@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="title" content="Point" />
+    <link rel="icon" href="/images/favicon.svg" type="image/svg+xml" />
+    <script src="https://play.workadventu.re/iframe_api.js"></script>
+  </head>
+  <style>
+    @font-face {
+      font-family: 'Pixel';
+      src: url('./font/pixelmix.ttf');
+    }
+    body {
+      font-family: 'Pixel';
+    }
+    main {
+      display: flex; 
+      flex-direction: row; 
+      padding: 10px; 
+      background-color: #272727; 
+      justify-content: space-evenly; 
+      align-items: center; 
+      border-radius: 5px;
+    }
+    #point {
+      color:white; 
+      border-radius: 5px; 
+      font-size: 30px;
+    }
+    img {
+      width: 40px; 
+      height: 45px;
+    }
+  </style>
+  <body">
+    <div class="content">
+      <main>
+        <div id="point">0</div>
+        <img src="medal.png">
+      </main>
+    </div>
+    <footer>
+    </footer>
+    <script>
+      let points = document.getElementById("point");
+      WA.event.on("point-update").subscribe((event) => {
+        const updatedPointValue = event.data;
+        points.textContent = String(updatedPointValue);
+      });
+    </script>
+  </body>
+</html>

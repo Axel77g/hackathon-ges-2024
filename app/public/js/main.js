@@ -8,6 +8,7 @@
  * Envoie un event pour mettre a jours l'etat de connexion du membre (/src/main.tsx)
  * @call /login
  */
+
 const EMAIL_REGEX =
   /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/;
 
@@ -16,6 +17,7 @@ async function bootstrapLogin() {
   WA.onInit().then(async () => {
     const link = document.getElementById("link");
     const input = document.getElementById("email");
+
     if (WA?.player?.isLogged) {
       if (WA.player.uuid.match(EMAIL_REGEX)) {
         input.value = WA.player.uuid;
@@ -40,6 +42,7 @@ async function bootstrapLogin() {
         let url = link.href + "&state=" + base64Payload;
         window.open(url, "_blank");
       });
+
       //verification de la connexion
       while (tries < 20) {
         fetch("/is-connected", {
