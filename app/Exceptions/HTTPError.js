@@ -21,7 +21,10 @@ export class HTTPError extends Error {
         };
         res.status(err.status).json(errorResponse);
       } else {
-        throw err;
+        res.status(500).json({
+          status: 500,
+          message: "Internal Server Error",
+        });
       }
     }
   }
