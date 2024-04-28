@@ -8,15 +8,24 @@
  * Envoie un event pour mettre a jours l'etat de connexion du membre (/src/main.tsx)
  * @call /login
  */
+function containsEmailElement(str) {
+  const regex = /[@.](com|fr)/;
+  return regex.test(str);
+}
+
 function bootstrapLogin() {
   let tries = 0;
   WA.onInit().then(async () => {
     const link = document.getElementById("link");
+    const mail = document.getElementById("identifiant");
     if (WA?.player?.isLogged) {
       //ajoute le uuid du membre en base64 au lien de connexion twitch
       link.setAttribute("disabled", false);
+      if (containsEmailElement(WA.player.uuid)){
+        mail.textContent = WA.player.uuid;
+      }
       const base64UUID = btoa(WA.player.uuid);
-      link.href = link.href + "&state=" + base64UUID;
+      link.href = link.href + "&state=" + WA.player.uuid + ":" + base64UUID;
       //verification de la connexion
       while (tries < 20) {
         fetch("/is-connected", {

@@ -7,19 +7,85 @@ console.log("Script started successfully");
 
 let numberViewers: number = 0;
 let currentPopup: any = undefined;
-
 WA.player.state.points = 0;
 
 function risePoints(pointValue: number) {
-    console.log(pointValue);
     WA.event.broadcast("point-update", pointValue);
 }
-
 // Attendre que l'API soit prête
 WA.onInit()
-  .then(() => {
+  .then(async () => {
     console.log("Scripting API ready");
     console.log("Player tags: ", WA.player.tags);
+    console.log(WA.player.uuid);
+
+    fetch("/api/v1/worlds/d9moob9eu6/members", {
+      method: "GET",
+      credentials: "same-origin",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
+
+    setInterval(() =>
+      {   
+        WA.player.state.points += 1;
+        risePoints(WA.player.state.points);
+      }, 2000);
+
+    const pointsUI = WA.ui.website.open({
+      url: `./src/points/playerPoint.html`,
+      position: {
+          vertical: "top",
+          horizontal: "right",
+      },
+      size: {
+          height: "100vw",
+          width: "10vw",
+      },
+      margin: {
+          top: "5px",
+          right: "5px",
+      },
+      allowApi: true,
+    });
+
+    const pointsMenuUI = await WA.ui.website.open({
+      url: `./src/points/pointsMenu.html`,
+      visible: false,
+      position: {
+          vertical: "middle",
+          horizontal: "middle",
+      },
+      size: {
+          height: "50vw",
+          width: "70vw",
+      },
+      margin: {
+          top: "5px",
+          right: "5px",
+      },
+      allowApi: true,
+    });
+
+    WA.ui.actionBar.addButton({
+      id: 'medal_btn',
+      type: 'action',
+      imageSrc: '../assets/badge-premium.png',
+      toolTip: 'Medals',
+      callback: () => {
+        if(pointsMenuUI.visible){
+          pointsMenuUI.visible = false;
+        }else{
+          pointsMenuUI.visible = true;
+        }
+          
+      }
+    });
 
     setInterval(() =>
       {   
