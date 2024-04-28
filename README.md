@@ -62,7 +62,7 @@ npm install
 
 ### Modifier la map pour pointer vers votre serveur local
 
-Pour lancer en local le projet vous devez modifier le fichier `hub.tmj` et remplacer toutes les occurances de `hackathon.axelgodefroy.fr` par `localhost:3000` puis lancer les commandes suivantes :
+Pour lancer en local le projet vous devez modifier le fichier `hub.tmj` et remplacer toutes les occurances de `hackathon-ges.axelgodefroy.fr` par `localhost:3000` puis lancer les commandes suivantes :
  
 ```bash
 npm run dev
