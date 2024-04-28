@@ -82,11 +82,9 @@ La porte d'accès : Gary NEVEU
 
 Système de médailles + points : Gary NEVEU
 
-Intégration Musiques :
+Intégration Popups : Gary NEVEU & BOULAHNINE Yassine
 
-Intégration Popups :
-
-Intégration des iframes :
+Intégration des iframes & sons (tiles) : Gary NEVEU & BOULAHNINE Yassine
 
 Login SSO Twitch : Axel GODEFROY
 
