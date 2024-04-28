@@ -38,7 +38,7 @@ async function bootstrapLogin() {
 
         const base64Payload = btoa(JSON.stringify(payload));
         let url = link.href + "&state=" + base64Payload;
-        window.location.href = url;
+        window.open(url, "_blank");
       });
       //verification de la connexion
       while (tries < 20) {
