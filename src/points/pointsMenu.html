@@ -48,6 +48,8 @@
       height: 250px;
       background-color: #3A3A3A;
       border-radius: 5px;
+      opacity: 0.4;
+      margin: 15px;
     }
     p {
       color: white;
@@ -58,37 +60,37 @@
       <main>
         <h2 id="point">Ranks</div>
         <div id="medals">
-          <div id="m1" style="margin: 15px">
+          <div id="m1">
             <p>Noob</p>
             <img src="./medals/shaded_medal2.png">
             <p>50pts</p>
           </div>
-          <div id="m2" style="margin: 15px">
+          <div id="m2">
             <p>Supporter</p>
             <img src="./medals/shaded_medal3.png">
             <p>125pts</p>
           </div>
-          <div id="m3" style="margin: 15px">
+          <div id="m3">
             <p>Fan</p>
             <img src="./medals/shaded_medal4.png">
             <p>300pts</p>
           </div>
-          <div id="m4" style="margin: 15px">
+          <div id="m4">
             <p>Handsome</p>
             <img src="./medals/shaded_medal7.png">
             <p>500pts</p>
           </div>
-          <div id="m5" style="margin: 15px">
+          <div id="m5">
             <p>Ultra</p>
             <img src="./medals/shaded_medal8.png">
             <p>750pts</p>
           </div>
-          <div id="m6" style="margin: 15px">
+          <div id="m6">
             <p>Golden Viewer</p>
             <img src="./medals/shaded_medal9.png">
             <p>999pts</p>
           </div>
-          <div id="m7" style="margin: 15px">
+          <div id="m7">
             <p>Modo</p>
             <img src="./medals/shaded_medal10.png">
             <p>2000pts</p>
@@ -100,13 +102,6 @@
     </footer>
     <script>
       let points = 0;
-      document.getElementById("m1").style.opacity = 0.4;
-      document.getElementById("m2").style.opacity = 0.4;
-      document.getElementById("m3").style.opacity = 0.4;
-      document.getElementById("m4").style.opacity = 0.4;
-      document.getElementById("m5").style.opacity = 0.4;
-      document.getElementById("m6").style.opacity = 0.4;
-      document.getElementById("m7").style.opacity = 0.4;
 
       WA.event.on("point-update").subscribe((event) => {
         points = event.data;

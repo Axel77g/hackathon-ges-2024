@@ -10,26 +10,14 @@ let currentPopup: any = undefined;
 WA.player.state.points = 0;
 
 function risePoints(pointValue: number) {
-    WA.event.broadcast("point-update", pointValue);
+  console.log(pointValue);
+  WA.event.broadcast("point-update", pointValue);
 }
 // Attendre que l'API soit prête
 WA.onInit()
   .then(async () => {
     console.log("Scripting API ready");
     console.log("Player tags: ", WA.player.tags);
-    console.log(WA.player.uuid);
-
-    fetch("/api/v1/worlds/d9moob9eu6/members", {
-      method: "GET",
-      credentials: "same-origin",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-      });
 
     setInterval(() =>
       {   
@@ -37,7 +25,7 @@ WA.onInit()
         risePoints(WA.player.state.points);
       }, 2000);
 
-    const pointsUI = WA.ui.website.open({
+    const pointsCounter = WA.ui.website.open({
       url: `./src/points/playerPoint.html`,
       position: {
           vertical: "top",
@@ -62,7 +50,7 @@ WA.onInit()
           horizontal: "middle",
       },
       size: {
-          height: "50vw",
+          height: "40vw",
           width: "70vw",
       },
       margin: {
@@ -74,38 +62,13 @@ WA.onInit()
 
     WA.ui.actionBar.addButton({
       id: 'medal_btn',
-      type: 'action',
-      imageSrc: '../assets/badge-premium.png',
-      toolTip: 'Medals',
+      label: 'Medals',
       callback: () => {
         if(pointsMenuUI.visible){
           pointsMenuUI.visible = false;
         }else{
           pointsMenuUI.visible = true;
         }
-          
-      }
-    });
-
-    setInterval(() =>
-      {   
-        WA.player.state.points += 1;
-        risePoints(WA.player.state.points);
-      }, 2000);
-
-    WA.ui.website.open({
-      url: `./src/points/playerPoint.html`,
-      position: {
-          vertical: "top",
-          horizontal: "right",
-      },
-      size: {
-          height: "100vw",
-          width: "10vw",
-      },
-      margin: {
-          top: "5px",
-          right: "5px",
       }
     });
 

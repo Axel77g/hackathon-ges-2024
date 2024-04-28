@@ -16,12 +16,30 @@
     body {
       font-family: 'Pixel';
     }
+    main {
+      display: flex; 
+      flex-direction: row; 
+      padding: 10px; 
+      background-color: #272727; 
+      justify-content: space-evenly; 
+      align-items: center; 
+      border-radius: 5px;
+    }
+    #point {
+      color:white; 
+      border-radius: 5px; 
+      font-size: 30px;
+    }
+    img {
+      width: 40px; 
+      height: 45px;
+    }
   </style>
   <body">
     <div class="content">
-      <main style="display: flex; flex-direction: row; padding: 10px; background-color: #272727; justify-content: space-evenly; align-items: center; border-radius: 5px;">
-        <div id="point" style="color:white; border-radius: 5px; font-size: 30px;">0</div>
-        <img style="width: 40px; height: 45px;" src="medal.png">
+      <main>
+        <div id="point">0</div>
+        <img src="medal.png">
       </main>
     </div>
     <footer>
@@ -30,7 +48,7 @@
       let points = document.getElementById("point");
       WA.event.on("point-update").subscribe((event) => {
         const updatedPointValue = event.data;
-        points.innerHTML = updatedPointValue;
+        points.textContent = String(updatedPointValue);
       });
     </script>
   </body>
