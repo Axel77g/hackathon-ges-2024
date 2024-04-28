@@ -19,6 +19,8 @@
         name="email"
         placeholder="email@example.fr"
       />
+      <small>Vous pouvez trouver votre email dans ce menu</small>
+      <img src="/images/help.png" alt="" height="50" />
     </div>
     <a disabled href="<%=url%>" target="_app" id="link">Connexion</a>
   </body>
@@ -38,6 +40,12 @@
       text-align: left !important;
       margin: 0.5em auto;
       font-size: 16px;
+    }
+    .input-container small {
+      text-align: center;
+    }
+    .input-container img {
+      height: 50px;
     }
     .input-container input {
       display: block;
