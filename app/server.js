@@ -81,8 +81,18 @@ app.get("/oauth", (req, res) => {
     if (!response) throw new HTTPError(500, "Internal Server Error");
     const accessToken = response.access_token;
 
-    // Récupération des informations de l'utilisateur twitch et de l'uid du membre WA
-    const memberID = Buffer.from(state, "base64").toString("utf8");
+    // Récupération des informations de l'utilisateur twitch et de l'uid et les infos du membre WA
+    try {
+      const memberWAState = JSON.parse(
+        Buffer.from(state, "base64").toString("utf8")
+      );
+      if (!memberWAState || !memberWAState.uuid || !memberWAState.email)
+        throw new HTTPError(400, "Bad request");
+    } catch (error) {
+      throw new HTTPError(400, "Bad request");
+    }
+
+    const memberID = memberWAState.uuid;
     const user = await Twitch.getUserInfo(accessToken);
 
     // Vérification de l'abonnement à la chaine
@@ -91,13 +101,13 @@ app.get("/oauth", (req, res) => {
       user.id,
       "28575692"
     );
-
     // Ajout du tag subscribed_tier au membre WA si l'utilisateur est abonné
     if (isSubscribed || true) {
       const member = await UserServices.addRoleToMember(
         app.WA,
         memberID,
-        "isSubscribed.tier"
+        "isSubscribed.tier",
+        memberWAState
       );
       req.session.user = {
         twitch: user,

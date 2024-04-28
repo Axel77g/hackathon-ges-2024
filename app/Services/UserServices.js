@@ -32,7 +32,7 @@ export class UserServices {
    * @returns {Object} le membre mis à jour
    * @throws {HTTPError} si le membre n'est pas trouvé
    */
-  static async addRoleToMember(WA, memberID, tiers) {
+  static async addRoleToMember(WA, memberID, tiers, fallbackPayload = {}) {
     try {
       const { data: member } = await WA.getMember(memberID);
       member.tags.push("subscribed_" + tiers);
@@ -46,7 +46,18 @@ export class UserServices {
         console.error(error);
       }
     } catch (error) {
-      throw new HTTPError(404, "Member not found");
+      if (error.response.status === 404) {
+        const { data: member } = await WA.createMember({
+          name: fallbackPayload?.name || "Membre anonyme",
+          email: fallbackPayload.email,
+          tags: ["subscribed_" + tiers].join(","),
+        });
+        return member;
+      } else
+        throw new HTTPError(
+          500,
+          "Error while comunicating with Workadventure API"
+        );
     }
   }
 }

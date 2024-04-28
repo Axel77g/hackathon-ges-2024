@@ -11,6 +11,15 @@
   <body>
     <img src="/images/logo.png" alt="" />
     <h1>Connectez-vous à Twitch</h1>
+    <div class="input-container">
+      <label for="email">Email de votre compte Workadventure</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        placeholder="email@example.fr"
+      />
+    </div>
     <a disabled href="<%=url%>" target="_app" id="link">Connexion</a>
   </body>
   <style>
@@ -20,6 +29,20 @@
     }
     h1 {
       margin-top: 0vh;
+    }
+    .input-container {
+      width: 300px;
+      display: flex;
+      flex-direction: column;
+      gap: 1em;
+      text-align: left !important;
+      margin: 0.5em auto;
+      font-size: 16px;
+    }
+    .input-container input {
+      display: block;
+      width: 100%;
+      padding: 0.5em !important;
     }
   </style>
 </html>
