@@ -50,7 +50,7 @@ if (isSubscribed || true) { // le "|| true" permet d'autoriser tous les comptes 
 Avant toute chose, vous devez installer un certificat SSL sur votre localhost, il est obligatoire pour le fonctionnement des cookies tiers, ils sont utilisés afin de faire fonctionner le login avec twitch. Vous pouvez suivre les étapes de [ce guide](https://web.dev/articles/how-to-use-local-https?hl=fr).
 
 Il vous faudrat ensuite:
-- [Créer une application twitch pour faire une connexion SSO](https://dev.twitch.tv/console/apps)
+- [Créer une application twitch pour faire une connexion SSO](https://dev.twitch.tv/console/apps), en spécifiant en redirect_uri https://localhost:3000
 - [Créer une application Workadventure](https://admin.workadventu.re/?view=developers)
 
 Avec cela vous pourrez configurer le `app/.env` en suivant le `app/env.example`
