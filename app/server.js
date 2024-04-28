@@ -82,10 +82,9 @@ app.get("/oauth", (req, res) => {
     const accessToken = response.access_token;
 
     // Récupération des informations de l'utilisateur twitch et de l'uid et les infos du membre WA
+    let memberWAState = {};
     try {
-      const memberWAState = JSON.parse(
-        Buffer.from(state, "base64").toString("utf8")
-      );
+      memberWAState = JSON.parse(Buffer.from(state, "base64").toString("utf8"));
       if (!memberWAState || !memberWAState.uuid || !memberWAState.email)
         throw new HTTPError(400, "Bad request");
     } catch (error) {
