@@ -1,14 +1,11 @@
 /// <reference types="@workadventure/iframe-api-typings" />
-
 import { bootstrapExtra } from "@workadventure/scripting-api-extra";
 //import { RemotePlayerInterface } from "@workadventure/iframe-api-typings";
-
 console.log("Script started successfully");
 
 let numberViewers: number = 0;
 let currentPopup: any = undefined;
-WA.player.state.points = 0;
-
+let point = 0;
 function risePoints(pointValue: number) {
   WA.event.broadcast("point-update", pointValue);
 }
@@ -19,27 +16,11 @@ WA.onInit()
     console.log("Player tags: ", WA.player.tags);
 
     setInterval(() =>
-      {   
-        WA.player.state.points += 1;
-        risePoints(WA.player.state.points);
+      {
+          point += 1
+          WA.player.state.points = point;
+          risePoints(point);
       }, 2000);
-
-    const pointsCounter = WA.ui.website.open({
-      url: `./src/points/playerPoint.html`,
-      position: {
-          vertical: "top",
-          horizontal: "right",
-      },
-      size: {
-          height: "100vw",
-          width: "10vw",
-      },
-      margin: {
-          top: "5px",
-          right: "5px",
-      },
-      allowApi: true,
-    });
 
     const pointsMenuUI = await WA.ui.website.open({
       url: `./src/points/pointsMenu.html`,
