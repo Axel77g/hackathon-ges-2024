@@ -77,7 +77,9 @@ Rendez-vous sur localhost:5173 pour accéder à la map.
 ## Fonctionnalités & répartition des tâches
 
 
-La porte d'accès : 
+La porte d'accès : Gary NEVEU 
+
+Systeme de médailles + points : Gary NEVEU 
 
 Intégration Musiques : 
 
