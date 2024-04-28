@@ -22,8 +22,25 @@ WA.onInit()
           risePoints(point);
       }, 2000);
 
+      WA.ui.website.open({
+          url: `./points/playerPoint.html`,
+          position: {
+              vertical: "top",
+              horizontal: "right",
+          },
+          size: {
+              height: "100vw",
+              width: "10vw",
+          },
+          margin: {
+              top: "5px",
+              right: "5px",
+          },
+          allowApi: true,
+      });
+
     const pointsMenuUI = await WA.ui.website.open({
-      url: `./src/points/pointsMenu.html`,
+      url: `./points/pointsMenu.html`,
       visible: false,
       position: {
           vertical: "middle",
