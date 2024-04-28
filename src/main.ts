@@ -224,7 +224,7 @@ WA.onInit()
     // Initialisation de la bibliothèque Scripting API Extra
     bootstrapExtra()
       .then(() => {
-        console.log("Scripting API Extra ready");
+        console.log("Scripting API Extra ready !");
       })
       .catch((e) => console.error(e));
   })
