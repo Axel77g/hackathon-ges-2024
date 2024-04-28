@@ -2,7 +2,8 @@
 
 > BOULAHNINE Yassine, DIALLO Abdoulaye, GODEFROY Axel, MARTINEZ ALVES Laura, NEVEU Gary, YOPA Leonce
 
-> Développeurs : BOULAHNINE Yassine, GODEFROY Axel, NEVEU Gary, YOPA Leonce
+> Développeurs : BOULAHNINE Yassine (yasblha), GODEFROY Axel (axel77g), NEVEU Gary (
+GaryNvu), YOPA Leonce (zaengetsu)
 
 ## Stack du projet
 
