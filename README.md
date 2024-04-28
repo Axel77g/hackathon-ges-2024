@@ -1,7 +1,8 @@
 # Hackathon GES 20224 - Groupe 3
 
-> BOULAHNINE Yassine, DIALLO  Abdoulaye, GODEFROY Axel, MARTINEZ ALVES Laura, NEVEU Gary, YOPA Leonc
-> Développeurs : BOULAHNINE Yassine, GODEFROY Axel, NEVEU Gary, YOPA Leonc
+> BOULAHNINE Yassine, DIALLO  Abdoulaye, GODEFROY Axel, MARTINEZ ALVES Laura, NEVEU Gary, YOPA Leonce
+
+> Développeurs : BOULAHNINE Yassine, GODEFROY Axel, NEVEU Gary, YOPA Leonce
 
 ## Stack du projet
 
