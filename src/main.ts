@@ -10,7 +10,6 @@ let currentPopup: any = undefined;
 WA.player.state.points = 0;
 
 function risePoints(pointValue: number) {
-  console.log(pointValue);
   WA.event.broadcast("point-update", pointValue);
 }
 // Attendre que l'API soit prête
